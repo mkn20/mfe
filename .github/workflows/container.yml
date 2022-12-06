@@ -18,12 +18,14 @@ jobs:
     runs-on: ubuntu-latest
  
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v2
       - name: Run npm install
         run: npm install
  
       - name: Run npm build
         run: npm run build
+        env: 
+         PRODUCTION_DOMAIN: ${{ secrets.PRODUCTION_DOMAIN }}
  
       - uses: shinyinc/action-aws-cli@v1.2
       - name: Sync AWS dist
@@ -31,4 +33,4 @@ jobs:
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          AWS_DEFAULT_REGION: us-east-1
+          AWS_DEFAULT_REGION: "us-east-1"
